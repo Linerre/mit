@@ -18,12 +18,13 @@ There are a couple of versions available for this course.  The table below lists
 | 2009 | [[https://ocw.mit.edu/courses/6-004-computation-structures-spring-2009/][2009-Spring]] | [[https://ocw.mit.edu/courses/6-004-computation-structures-spring-2009/download/][MIT OpenCourseWare]]    | NA             |
 | 2017 | [[https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/][2017-Spring]] | [[https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/pages/syllabus/][MIT OpenCourseWare]][1] | [[https://youtube.com/playlist?list=PLUl4u3cNGP62WVs95MNq3dQBqY2vGOtQ2&si=KLMhgGDRrluA7D_a][YouTube]]        |
 | 2018 | NA          | [[https://6191.mit.edu/fall23/resources][6.191 Resources]]       | [[https://youtube.com/playlist?list=PLDSlqjcPpoL64CJdF0Qee5oWqGS6we_Yu&si=JvM51x8XKzCZoZii][YouTube]][2]     |
-| 2019 | NA          | NA                    | [[https://www.youtube.com/playlist?list=PLmQZXrtupiSYcziH3iZZoGTng1D0UnsFJ][YouTube]]        |
+| 2019 | NA          | [[https://6191.mit.edu/fall23/resources/sp23][6.191 Archives (sp23)]] | [[https://www.youtube.com/playlist?list=PLmQZXrtupiSYcziH3iZZoGTng1D0UnsFJ][YouTube]][3]     |
 |------+-------------+-----------------------+----------------|
 - [1] The annotated slides are embedded in each lecture.  Navigate the left sidebar to find them.
 - [2] The official site (https://6004.mit.edu/web/fall18/resources) mentioned in the video list is /not/ accessible to non-mit students, but under the "Material" tab the required/needed resources are available for download.
-- [3] On Bilibili it's easy to find many more videos for later semesters.
-- [4] Stanford hosts an all-in-one lecture notes in [[https://web.stanford.edu/~lindrew/6.004.pdf][PDF]] for 2020 version of this course.
+- [3] *This is the version I'm learning.*
+- [a] On Bilibili it's easy to find many more videos for later semesters.
+- [b] Stanford hosts an all-in-one lecture notes in [[https://web.stanford.edu/~lindrew/6.004.pdf][PDF]] for 2020 version of this course.
 
 Matthew Towers in his [[https://www.homepages.ucl.ac.uk/~ucahmto/elearning/2020/04/13/6.004_and_CS143.html][6.004 and CS143 (Compilers)]] post gives a quick rundown of different 6.004 versions and (possible) reasons for why the later versions become more inaccessible (mainly, academic integrity).
 
@@ -41,8 +42,6 @@ CLOCK: [2023-12-22 Fri 15:26]--[2023-12-22 Fri 17:14] =>  1:48
 About 23 topics in total.  The course is usually delivered in Fall and Spring semesters.
 
 ** Timetable
-#+ BEGIN RECEIVE ORGTBL timetable
-#+ END RECEIVE ORGTBL timetable
 
 #+ORGTBL: SEND lectures orgtbl-to-orgtbl :splice nil :skip 0
 | Lec | Topic                                         |      Start |       Done |
@@ -71,6 +70,8 @@ About 23 topics in total.  The course is usually delivered in Fall and Spring se
 | L22 | Cache Coherence                               |            |            |
 | L23 | Modern Processor Architecture                 |            |            |
 |-----+-----------------------------------------------+------------+------------|
+
+*NOTE*: Labs are not accessible to non-MIT students.  Do the [[http://csg.csail.mit.edu/6.175/labs.html][labs of 6.175]] instead, as that course has the same instructor, textbook as 6.004 and very similar lab content.
 
 #+ORGTBL: labs
 | Lab | Topic                    | out | due      |
@@ -139,4 +140,4 @@ This course relies on [[https://youtu.be/n-YWa8hTdH8?t=2862&si=ocxGOJJxXyDiHKQ4]
 - Bluespec support for Emacs
   - Official repo: [[https://github.com/B-Lang-org/bsc/tree/main/util/emacs]]
   - [[https://github.com/joachimschmidt557/bsv-mode/blob/master/bsv-mode.el][joachimschmidt557/bsv-mode]]
-- [[https://web.ece.ucsb.edu/its/bluespec/doc/BSV/user-guide.pdf][Bluespec User Guide [PDF]​]]
+- [[https://web.ece.ucsb.edu/its/bluespec/doc/BSV/user-guide.pdf][Bluespec User Guide <PDF>​]]
