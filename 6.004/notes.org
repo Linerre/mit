@@ -133,6 +133,9 @@ This course relies on [[https://youtu.be/n-YWa8hTdH8?t=2862&si=ocxGOJJxXyDiHKQ4]
 [[https://youtu.be/n-YWa8hTdH8?t=3172&si=TqwmwKV_PnP3nBXF][Grading]] is mentioned at the last.
 
 
+** L2
+
+
 * Miscellaneous
 - [[https://www.cl.cam.ac.uk/teaching/1314/P34/bluespec-walkthrough.html][Bluespec Walkthrough]] by Cambridge Computer Lab
 - Bluespec support for Emacs
@@ -140,3 +143,4 @@ This course relies on [[https://youtu.be/n-YWa8hTdH8?t=2862&si=ocxGOJJxXyDiHKQ4]
   - [[https://github.com/joachimschmidt557/bsv-mode/blob/master/bsv-mode.el][joachimschmidt557/bsv-mode]]
 - [[https://web.ece.ucsb.edu/its/bluespec/doc/BSV/user-guide.pdf][Bluespec User Guide <PDF>​]]
 - [[https://github.com/WangXuan95/BSV_Tutorial_cn][Bluespec SystemVerilog (BSV) 中文教程]]
+- [[https://www.bilibili.com/video/BV1u8411i7Qw/?share_source=copy_web&vd_source=8eebf82383d439a01f52d7cc19be4e7a][计算机体系结构: MIT课程学习新手上路宣讲]]
