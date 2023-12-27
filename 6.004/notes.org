@@ -1,6 +1,6 @@
 #+TITLE: Notes on Computation Structures
 #+AUTHOR: Linerre <zlinerre@gmail.com>
-
+#+OPTIONS: ^:{}
 * Announcement
 The course was previously known as 6.004 and now its course code has changed to 6.191.  As mentioned by the course's [[https://6191.mit.edu/fall23][official site]]:
 
@@ -38,6 +38,7 @@ CLOCK: [2023-12-22 Fri 15:26]--[2023-12-22 Fri 17:14] =>  1:48
 2 lectures and 1 lab each week, as illustrated at [[https://6191.mit.edu/fall23/schedule]]
 
 About 23 topics in total.  The course is usually delivered in Fall and Spring semesters.
+
 
 ** Timetable
 
@@ -133,7 +134,141 @@ This course relies on [[https://youtu.be/n-YWa8hTdH8?t=2862&si=ocxGOJJxXyDiHKQ4]
 [[https://youtu.be/n-YWa8hTdH8?t=3172&si=TqwmwKV_PnP3nBXF][Grading]] is mentioned at the last.
 
 
-** L2
+** L2 RISC-V & Assembly
+The 2019 Spring Lecture 2 now corresponds to Lecture 10 of [[https://6191.mit.edu/_static/fall23/resources/sp23/L10.pdf][Fall 2023]]
+Memory: Large but slow
+Registers: Fast but small (a limited number of them)
+
+*** word and byte
+This class focuses on the base integer 32-bit variant: RV32I processor
+
+word = 32 bits (memory location/address)
+byte = 8 bits (memory is also byte addressable)
+word = 4 bytes
+
+
+*** Instructions
+~slt~ instruction looks very like the comparison behavior/logic of C/Java functions where one of 1 (less) or 0 (not) is returned as the result.
+
+
+*** Binary Notation (base2)
+To handle overflow when using fixed-number bits: with N-bit numbers, equivalent to following all operations with mod 2^{N}.
+#+BEGIN_EXAMPLE
+Given 3-number bits, the max number representation is 7 (111). To represent the result of 5 + 6, use (5 + 6) mod 2^{3} = 3 (011)
+#+END_EXAMPLE
+
+
+*** Hexadecimal Notation (base16)
+To handle long strings of bits (tedious and error-prone), use hexadecimal or so called base16: Each group of 4 adjacent bits encoded into one single hexadecimal digit:
+#+BEGIN_EXAMPLE
+0b: 0111 1101 0000
+0x   7    D    0
+#+END_EXAMPLE
+
+Better to get really familiar with the table below
+#+NAME: Binary, Hexadecima, Decimal
+| Binary | Hexa | Decimal |
+|--------+------+---------|
+|   0000 |    0 |       0 |
+|   0001 |    1 |       1 |
+|   0010 |    2 |       2 |
+|   0011 |    3 |       3 |
+|   0100 |    4 |       4 |
+|   0101 |    5 |       5 |
+|   0110 |    6 |       6 |
+|   0111 |    7 |       7 |
+|   1000 |    8 |       8 |
+|   1001 |    9 |       9 |
+|   1010 |    A |      10 |
+|   1011 |    B |      11 |
+|   1100 |    C |      12 |
+|   1101 |    D |      13 |
+|   1110 |    E |      14 |
+|   1111 |    F |      15 |
+|--------+------+---------|
+
+
+*** Register-Immediate Instructions
+One operand comes from a register and the other is small constant hardcoded into the instruction.
+#+BEGIN_EXAMPLE
+the `i' means `immediate'
+addi x3, x1, 3 ==========> x3 <- x1 + 3
+andi x3, x1, 3 ==========> x3 <- x1 & 3
+slli x3, x1, 3 ==========> x3 <- x1 << 3
+#+END_EXAMPLE
+No subi, use negative constant instead
+#+BEGIN_EXAMPLE
+addi x3, x1, 3 ==========> x3 <- x1 - 3
+#+END_EXAMPLE
+
+*** Compound Computation
+- Break up complex expressions into *basic computations* because the available instructions support only two source operands and one destination operand (aka 3-address instructions)
+- Given a computation ~a = ((b+3) >> c) - 1;~, break it up to
+  #+BEGIN_EXAMPLE
+  t0 = b + 3;
+  t1 = t0 >> c;
+  a = t1 -1;
+  #+END_EXAMPLE
+
+#+BEGIN_SRC assembly
+addi x4, x2, 3
+srl x5, x4, x3
+addi x1, x5, -1
+#+END_SRC
+
+*** Control Flow Instructions
+Format: ~comp src1, src2, label~
+Performs comparison first to determine if branch is taken or not
+
+#+NAME: comparison ix
+| Instructions | beq | ben | blt | bge | bltu | bgeu |
+|--------------+-----+-----+-----+-----+------+------|
+| comp         | ==  | !=  | <   | >=  | <    | >=   |
+|--------------+-----+-----+-----+-----+------+------|
+
+See an example at [[https://youtu.be/41RyDXIoq2w?si=M_RYeidETcwIa5cl&t=1954][32:34]]
+
+*** Unconditional Control Instructions: Jumps [[https://youtu.be/41RyDXIoq2w?si=vPBKDuJIbeJ2OBKv&t=1964][32:44]]
+
+- ~jal~: unconditional jump and link
+- ~jalr~: unconditional jump via register and link
+- label encoded as an offset (how far) from current location
+- using register for a huge jump
+
+
+*** Performing Computations on Values in Memory [[https://youtu.be/41RyDXIoq2w?si=B83CNrsamXq0Ql8T&t=2083][34:43]]
+Load values from and store them to memory.
+
+
+*** RISC-V Load and Store Instructions [[https://youtu.be/41RyDXIoq2w?si=RMZplf8y2eAeg88b&t=2223][37:03]]
+- RISC-V does /not/ allow to write memory addressed into instructions directly
+- Address specified as <base-addr, offest> pair
+  + base-addr always stored in a register
+  + offset specified as a small constant
+  + format:
+    - ~lw dest, offest(base)~ load word
+    - ~sw src, offset(base)~  store word
+
+#+ORGTBL: risc-v load and store
+| Assembly          | Behavior                    |
+|-------------------+-----------------------------|
+| ~lw x1, 0x4(x0)~  | x1 <--- load(Mem[0x + 0x4]) |
+| ~lw x2, 0x8(x0)~  | x1 <--- load(Mem[0x + 0x8]) |
+| ~add x3, x1, x2~  | x3 <--- x1 + x3             |
+| ~sw x3, 0x10(x0)~ | store(Mem[x0 + 0x10])       |
+|-------------------+-----------------------------|
+
+Example at [[https://youtu.be/41RyDXIoq2w?si=LPCTZQKShKgGSOFL&t=2395][39:55]] shows a program that sums array elements using the above memory operations.
+
+*** Constatns and Instructions Encoding Limitations [[https://youtu.be/41RyDXIoq2w?si=7s2c9OnVVtoM_ae-&t=2629][43:49]]
+- Instructions encoded as 32 bits
+  - operation 10 bits, and
+  - 2 source registers (each 5 and 10 bits in total) or 1 source register (5 bits) plus a small constant, or
+  - 1 destination register (5 bits)
+- Constant in instructions must be < 12 bits.  Big consts stored in memory or register and used explicitly
+- The above limitations result in never specifying memory addrs (can be 32 bits) directly into instructions
+
+*** Pseudoinstructions [[https://youtu.be/41RyDXIoq2w?si=5S8MlO9at4AcxMH4&t=2936][48:56]]
 
 
 * Miscellaneous
