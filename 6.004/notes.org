@@ -271,6 +271,63 @@ Example at [[https://youtu.be/41RyDXIoq2w?si=LPCTZQKShKgGSOFL&t=2395][39:55]] sh
 *** Pseudoinstructions [[https://youtu.be/41RyDXIoq2w?si=5S8MlO9at4AcxMH4&t=2936][48:56]]
 
 
+** L3 Compiling Code, Procedures, and Stacks
+:LOGBOOK:
+CLOCK: [2024-01-11 Thu 22:20]--[2024-01-11 Thu 23:13] =>  0:53
+:END:
+See [[https://6191.mit.edu/_static/fall23/resources/sp23/L10.pdf][Lecture 10 slides]] of the Spring 23
+
+*** RISC-V Recap [[https://youtu.be/GWSrieOIXls?si=sUZhqFDvnKHSEG2e&t=174][2:54]]
+
+*** Dealing with constants
+
+*** Compiling Simple Expressions
+- Assign variables to registers
+- Translate operators into computational instructions
+- Use register-immediate instructions to handle ops with small constatns
+- Use ~li~ pseudo-instruction for large constants (See [[https://www.youtube.com/watch?v=GWSrieOIXls&list=PLmQZXrtupiSYcziH3iZZoGTng1D0UnsFJ&index=5&t=194s][Chapter 3]])
+
+
+*** Implementing procedures
+When a procedure (say, ~sum~) is called in many places:
+- caller can (unconditionally) jump (ix) to the procedure code, /but/
+- to return to the previous place, the called procedure must know which return addrs to use
+
+
+*Return address must be saved and passed to the called procedure!*
+
+
+***
+
+
+*** Procedure Linking
+To transfer control to callee (the called procedure) and back to caller
+#+BEGIN_EXAMPLE
+proc_call: jal ra,label
+^^^^^^^^^ procedure label, it is an addr like [0x100]
+#+END_EXAMPLE
+1. store addr of proc_call + 4 in register ~ra~ (return address register), decided by convention
+2. jump to ix at addr label where 'label' is the name of the procedure (~sum~ or ~reduce~, etc.)
+3. After executing procedure, ~j ra~ to return to caller and continue execution
+
+
+*** Procedure calls: Complications
+Nested procedure calls will result in later procedure calls override previous addr registers:
+Suppose A calls B which calls C, return addr for B will wipe out return addr for A
+
+*** Procedure storage needs
+Need a stack to store the necessary information, see [[https://www.youtube.com/watch?v=GWSrieOIXls&list=PLmQZXrtupiSYcziH3iZZoGTng1D0UnsFJ&index=5&t=1931s][32:11]]
+
+
+*** RISC-V Stack and Use of it [[https://www.youtube.com/watch?v=GWSrieOIXls&list=PLmQZXrtupiSYcziH3iZZoGTng1D0UnsFJ&index=5&t=2277s][37:57]]
+
+
+*** Calling Convention
+See the page 9 of the slides or [[https://www.youtube.com/watch?v=GWSrieOIXls&list=PLmQZXrtupiSYcziH3iZZoGTng1D0UnsFJ&index=5&t=2403s][40:03]]
+
+
+*** Caller-saved v.s. Callee-saved registers [[https://www.youtube.com/watch?v=GWSrieOIXls&list=PLmQZXrtupiSYcziH3iZZoGTng1D0UnsFJ&index=5&t=2633s][43:53]]
+
 * Miscellaneous
 - [[https://www.cl.cam.ac.uk/teaching/1314/P34/bluespec-walkthrough.html][Bluespec Walkthrough]] by Cambridge Computer Lab
 - Bluespec support for Emacs
