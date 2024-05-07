@@ -328,6 +328,14 @@ See the page 9 of the slides or [[https://www.youtube.com/watch?v=GWSrieOIXls&li
 
 *** Caller-saved v.s. Callee-saved registers [[https://www.youtube.com/watch?v=GWSrieOIXls&list=PLmQZXrtupiSYcziH3iZZoGTng1D0UnsFJ&index=5&t=2633s][43:53]]
 
+* L25 Cache Coherence
+** Lecture materials
+- Recording: https://youtu.be/83jOKVb_HTM?si=byK0xbRxOy8ez0d_
+- Slide: /not available/ anymore
+** Valid-Invalid Protocol
+** Modified-Shared-Invalid (MSI) Protocol
+** Modified-Exclusive-Shared-Invalid (MESI) Protocol
+
 * Miscellaneous
 - [[https://www.cl.cam.ac.uk/teaching/1314/P34/bluespec-walkthrough.html][Bluespec Walkthrough]] by Cambridge Computer Lab
 - Bluespec support for Emacs
